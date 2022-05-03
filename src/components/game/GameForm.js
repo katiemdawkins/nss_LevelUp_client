@@ -73,8 +73,8 @@ export const GameForm = () => {
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="number_of_players">Number Of Players: </label>
-                    <input id ="numOfPlayers" type="number" name="number_of_players" required autoFocus className="form-control"
-                        value={currentGame.number_of_players}
+                    <input id ="numOfPlayers" type="number" name="numberOfPlayers" required autoFocus className="form-control"
+                        value={currentGame.numberOfPlayers}
                         onChange={changeGameState}
                     />
                 </div>
@@ -82,8 +82,8 @@ export const GameForm = () => {
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="skill_level">Skill Level: </label>
-                    <input type="number" name="skill_level" required autoFocus className="form-control"
-                        value={currentGame.skill_level}
+                    <input type="number" name="skillLevel" required autoFocus className="form-control"
+                        value={currentGame.skillLevel}
                         onChange={changeGameState}
                     />
                 </div>
@@ -99,14 +99,14 @@ export const GameForm = () => {
                     const game = {
                         maker: currentGame.maker,
                         title: currentGame.title,
-                        numberOfPlayers: parseInt(currentGame.numberOfPlayers),
-                        skillLevel: parseInt(currentGame.skillLevel),
-                        gameTypeId: parseInt(currentGame.gameTypeId)
+                        number_of_players: parseInt(currentGame.numberOfPlayers),
+                        skill_level: parseInt(currentGame.skillLevel),
+                        game_type: parseInt(currentGame.gameTypeId)
                     }
 
                     // Send POST request to your API
                     createGame(game)
-                        .then(() => history.push("/games"))
+                        .then(() => history.push("/"))
                 }}
                 className="btn btn-primary">Create</button>
         </form>
