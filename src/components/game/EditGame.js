@@ -11,7 +11,9 @@ export const EditGame = () => {
 
     useEffect(()=>{
         getGameById(gameId)
-        .then(data => setGame(data))
+        .then(data => {
+            data.game_type = data.game_type.id
+            setGame(data)})
     },[gameId])
 
     useEffect(()=>{
@@ -23,12 +25,12 @@ export const EditGame = () => {
         evt.preventDefault()
         
         const editGameObj = {
-    
+            id: game.id,
             maker: game.maker,
             title: game.title,
             number_of_players: parseInt(game.number_of_players),
             skill_level: parseInt(game.skill_level),
-            game_type: parseInt(game.gameTypeId)
+            game_type: parseInt(game.game_type)
         }
         updateGame(editGameObj).then(()=> history.push("/"))
 
@@ -47,11 +49,11 @@ export const EditGame = () => {
                 <div className="form-group">
                     <label htmlFor="gameType">Game Type: </label>
                     <div className="control">
-                        <select name="gameTypeId"
+                        <select name="game_type"
                             proptype="int"
-                            value={game.gameTypeId}
+                            value={game.game_type}
                             onChange={updateGameState}>
-                            <option value={game.gameTypeId}>Select Game Type</option>
+                            <option value="0">Select Game Type</option>
                             {gameTypes.map(gtype => (
                                 <option key = {gtype.id} value={gtype.id}>
                                     {gtype.label}

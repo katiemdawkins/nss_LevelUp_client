@@ -1,5 +1,6 @@
 import React from "react"
 import { Route } from "react-router-dom"
+import { EditEvent } from "./event/EditEvent.js"
 import { EventForm } from "./event/EventForm.js"
 import { EventList } from "./event/EventList.js"
 import { EditGame } from "./game/EditGame.js"
@@ -26,6 +27,9 @@ export const ApplicationViews = () => {
             </Route>
             <Route exact path="/games/edit/:gameId(\d+)">
                 <EditGame />
+            </Route>
+            <Route exact path="/events/edit/:eventId(\d+)">
+                <EditEvent />
             </Route>
         </main>
     </>

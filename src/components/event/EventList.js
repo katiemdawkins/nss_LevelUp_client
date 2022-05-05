@@ -24,6 +24,9 @@ export const EventList = (props) => {
                         <div className="event__name">Game: {event.game.title}</div>
                         <div className="event__description">{event.description}</div>
                         <div className="event__when">When? {event.date}, {event.time}</div>
+                        <button onClick ={()=>{
+                            history.push(`events/edit/${event.id}`)
+                        }}>Edit Event</button>
                     </section>
                 })
             }
