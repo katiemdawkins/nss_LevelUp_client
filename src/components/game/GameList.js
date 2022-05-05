@@ -1,15 +1,27 @@
 import React, { useEffect, useState } from "react"
 import { useHistory } from "react-router-dom"
-import { getGames } from "./GameManager.js"
+import { deleteEvent } from "../event/EventManage.js"
+import { deleteGame, getGames } from "./GameManager.js"
 
 export const GameList = (props) => {
     const [ games, setGames ] = useState([])
     const history = useHistory()
 
-    useEffect(() => {
+    const gamesState = () =>{
         getGames().then(data => setGames(data))
-    }, [])
+    }
 
+    useEffect(()=>{
+        gamesState()
+    },[])
+
+    const onDeleteClick = (gameId) =>{
+        return deleteGame(gameId)
+        .then(data => {
+            gamesState(data)
+        })
+    }
+    
     return (
         <article className="games">
             <button className="btn btn-2 btn-sep icon-create"
@@ -26,7 +38,9 @@ export const GameList = (props) => {
                         <button onClick={()=> {
                             history.push(`games/edit/${game.id}`)
                         }}>Edit Game</button>
+                        <button onClick={()=>{onDeleteClick(game.id)}}>Delete Game</button>
                     </section>
+
                 })
             }
         </article>

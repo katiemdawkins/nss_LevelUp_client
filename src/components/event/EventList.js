@@ -1,16 +1,29 @@
 import React, { useEffect, useState } from "react"
 import { useHistory } from "react-router"
-import { getEvents } from "./EventManage.js"
+import { deleteEvent, getEvents } from "./EventManage.js"
 
 
 export const EventList = (props) => {
     const [ events, setEvents ] = useState([])
     const history = useHistory()
 
-    useEffect(() => {
-        getEvents().then(data => setEvents(data))
+    const eventsState = () => {
+        getEvents()
+        .then((data) => {
+            setEvents(data)
+        })
+    }
+
+    useEffect(()=>{
+        eventsState()
     }, [])
 
+    const onDeleteEventClick = (eventId) => {
+        return deleteEvent(eventId)
+        .then((data) =>{
+            eventsState(data)
+        })
+    }
     return (
         <article className="events">
             <button className="btn btn-2 btn-sep icon-create"
@@ -27,6 +40,7 @@ export const EventList = (props) => {
                         <button onClick ={()=>{
                             history.push(`events/edit/${event.id}`)
                         }}>Edit Event</button>
+                        <button onClick={()=>{onDeleteEventClick(event.id)}}>Delete Event</button>
                     </section>
                 })
             }
