@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useHistory } from "react-router"
-import { deleteEvent, getEvents } from "./EventManage.js"
+import { deleteEvent, getEvents, leaveEvent, joinEvent } from "./EventManage.js"
 
 
 export const EventList = (props) => {
@@ -37,6 +37,12 @@ export const EventList = (props) => {
                         <div className="event__name">Game: {event.game.title}</div>
                         <div className="event__description">{event.description}</div>
                         <div className="event__when">When? {event.date}, {event.time}</div>
+                        {
+                            event.joined ?
+                            <button onClick={()=>{leaveEvent(event.id).then(res=>setEvents(res))}}>Leave Event</button>
+                            :
+                            <button onClick={()=>{joinEvent(event.id).then(res=>setEvents(res))}}>Join Event</button>
+                        }
                         <button onClick ={()=>{
                             history.push(`events/edit/${event.id}`)
                         }}>Edit Event</button>
